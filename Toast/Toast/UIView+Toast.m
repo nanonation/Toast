@@ -138,7 +138,9 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cs_handleToastTapped:)];
         [toast addGestureRecognizer:recognizer];
         toast.userInteractionEnabled = YES;
+#if TARGET_OS_IOS
         toast.exclusiveTouch = YES;
+#endif
     }
     
     [[self cs_activeToasts] addObject:toast];
@@ -443,8 +445,13 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
         self.horizontalPadding = 10.0;
         self.verticalPadding = 10.0;
         self.cornerRadius = 10.0;
+#if TARGET_OS_IOS
         self.titleFont = [UIFont boldSystemFontOfSize:16.0];
         self.messageFont = [UIFont systemFontOfSize:16.0];
+#else
+        self.titleFont = [UIFont boldSystemFontOfSize:38.0];
+        self.messageFont = [UIFont systemFontOfSize:38.0];
+#endif
         self.titleAlignment = NSTextAlignmentLeft;
         self.messageAlignment = NSTextAlignmentLeft;
         self.titleNumberOfLines = 0;
